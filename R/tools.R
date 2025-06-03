@@ -305,6 +305,8 @@ load_shapefile = function (computer_shp_path, Code=NULL,
             river$length = as.numeric(sf::st_length(river$geometry))
             river = river[river$length >= river_length,]
         }
+        river = river[!grepl(paste(c("canal", "Canal"), collapse='|'),
+                             river$TopoOH),]
         if (!is.null(river_selection)) {
             river = river[grepl(paste(river_selection, collapse='|'),
                                 river$TopoOH),]
