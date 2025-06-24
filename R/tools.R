@@ -193,6 +193,7 @@ float2frac = function (X, den) {
 #' with 'geom_polygon' or 'geom_path'.
 #' @export
 load_shapefile = function (computer_shp_path, Code=NULL,
+                           europe_shp_path=NULL,
                            france_shp_path=NULL,
                            bassinHydro_shp_path=NULL,
                            regionHydro_shp_path=NULL,
@@ -204,6 +205,20 @@ load_shapefile = function (computer_shp_path, Code=NULL,
                            river_length=NULL,
                            river_selection=NULL,
                            toleranceRel=10000) {
+
+    # Europe
+    if (!is.null(europe_shp_path)) {
+        europe_path = file.path(computer_shp_path,
+                                europe_shp_path)
+        europe = sf::st_read(europe_path)
+        europe = sf::st_transform(europe, 2154)
+        europe = sf::st_simplify(europe,
+                             preserveTopology=TRUE,
+                             dTolerance=toleranceRel)
+    } else {
+        europe = NULL
+    }
+
     
     # France
     if (!is.null(france_shp_path)) {
@@ -319,7 +334,8 @@ load_shapefile = function (computer_shp_path, Code=NULL,
         river = NULL
     }
 
-    return (list(france=france,
+    return (list(europe=europe,
+                 france=france,
                  bassinHydro=bassinHydro,
                  regionHydro=regionHydro,
                  secteurHydro=secteurHydro,

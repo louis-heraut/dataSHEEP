@@ -691,6 +691,7 @@ compute_colorBin = function (min, max, colorStep, center=NULL,
 #' @title get_color
 #' @export
 get_color = function (value, upBin, lowBin, Palette,
+                      Palette_level=NULL,
                       include_min=FALSE,
                       include_max=TRUE,
                       return_id=FALSE) {
@@ -723,7 +724,6 @@ get_color = function (value, upBin, lowBin, Palette,
             id = which(lowBin < value & value <= upBin)
         }
     }
-
     if (return_id) {
         if (length(id) == 0) {
             id = NA
@@ -743,6 +743,7 @@ get_color = function (value, upBin, lowBin, Palette,
 #' @title get_colors
 #' @export
 get_colors = function (Value, upBin, lowBin, Palette,
+                       Palette_layers=NULL,
                        include_min=FALSE,
                        include_max=TRUE) {
     colors = unlist(sapply(Value, get_color,
@@ -751,7 +752,16 @@ get_colors = function (Value, upBin, lowBin, Palette,
                            Palette=Palette,
                            include_min=include_min,
                            include_max=include_max))
-    return (colors)
+
+    if (!is.null(Palette_layers)) {
+        palette_match = match(colors, Palette)
+        palette_matchNoNA = palette_match[!is.na(palette_match)]
+        layers = Palette_layers[palette_match]
+        res = list(colors=colors, layers=layers)
+    } else {
+        res = colors
+    }
+    return (res)
 } 
 
 
