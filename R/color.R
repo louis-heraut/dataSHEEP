@@ -347,6 +347,7 @@ theme_IPCC = function (is_panel.background=FALSE,
                        is_panel.grid.major.y=TRUE, 
 
                        is_axis.line.x=TRUE,
+                       axis.line.x_size=0.45,
                        is_axis.ticks.x=TRUE,
                        is_axis.text.x=TRUE,
                        axis.text.x_size=9,
@@ -461,7 +462,7 @@ theme_IPCC = function (is_panel.background=FALSE,
     }
 
     if (is_axis.line.x) {
-        axis.line.x = element_line(color=IPCCgrey60, size=0.45,
+        axis.line.x = element_line(color=IPCCgrey60, size=axis.line.x_size,
                                    lineend="square")
     } else {
         axis.line.x = element_blank()
