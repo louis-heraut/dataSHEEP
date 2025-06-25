@@ -20,7 +20,7 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 # "EXPLORE2", "IPCC"
-
+ 
 #' @title assign_colors
 #' @export
 assign_colors = function (refCOL="INRAE") {
@@ -309,10 +309,15 @@ get_IPCC_Palette = function (palette_name, colorStep=NA, reverse=FALSE) {
 
 #' @title test_palette
 #' @export
-test_palette = function (palette_name, colorStep=NA, reverse=FALSE) {
-    Palette = get_IPCC_Palette(palette_name,
-                               colorStep=colorStep,
-                               reverse=reverse)
+test_palette = function (Palette=NULL, palette_name=NULL, colorStep=NA, reverse=FALSE) {
+    if (!is.null(palette_name)) {
+        Palette = get_IPCC_Palette(palette_name,
+                                   colorStep=colorStep,
+                                   reverse=reverse)
+    }
+    if (is.null(Palette)) {
+        stop("Give either `Palette` or `palette_name` argument")
+    }
     plot = ggplot2::ggplot() + ggplot2::theme_void() +
         ggplot2::annotate("tile", x=1:colorStep, y=0,
                           color=NA, fill=Palette)
