@@ -311,11 +311,11 @@ load_shapefile = function (computer_shp_path, Code=NULL,
         MESO_path = file.path(computer_shp_path,
                               MESO_shp_path)
         MESO = sf::st_read(MESO_path)
-        # MESO = sf::st_make_valid(MESO)
+        MESO = sf::st_make_valid(MESO)
         MESO = sf::st_transform(MESO, 2154)
         MESO = sf::st_simplify(MESO,
                                preserveTopology=TRUE,
-                               dTolerance=toleranceRel*0.6)
+                               dTolerance=toleranceRel*0.25)
     } else {
         MESO = NULL
     }
