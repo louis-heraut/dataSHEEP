@@ -200,6 +200,7 @@ load_shapefile = function (computer_shp_path, Code=NULL,
                            secteurHydro_shp_path=NULL,
                            entiteHydro_shp_path=NULL,
                            entitePiezo_shp_path=NULL,
+                           MESO_shp_path=NULL,
                            river_shp_path=NULL,
                            river_class=NULL,
                            river_length=NULL,
@@ -303,6 +304,21 @@ load_shapefile = function (computer_shp_path, Code=NULL,
     } else {
         entitePiezo = NULL
     }    
+
+
+    # MESO
+    if (!is.null(MESO_shp_path)) {
+        MESO_path = file.path(computer_shp_path,
+                              MESO_shp_path)
+        MESO = sf::st_read(MESO_path)
+        # MESO = sf::st_make_valid(MESO)
+        MESO = sf::st_transform(MESO, 2154)
+        MESO = sf::st_simplify(MESO,
+                               preserveTopology=TRUE,
+                               dTolerance=toleranceRel*0.6)
+    } else {
+        MESO = NULL
+    }
     
     # If the river shapefile needs to be load
     if (!is.null(river_shp_path)) {
@@ -341,6 +357,7 @@ load_shapefile = function (computer_shp_path, Code=NULL,
                  secteurHydro=secteurHydro,
                  entiteHydro=entiteHydro,
                  entitePiezo=entitePiezo,
+                 MESO=MESO,
                  river=river))
 }
 
