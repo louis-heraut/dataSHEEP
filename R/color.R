@@ -752,6 +752,7 @@ get_colors = function (Value, upBin, lowBin, Palette,
                        Palette_layers=NULL,
                        include_min=FALSE,
                        include_max=TRUE) {
+    
     colors = unlist(sapply(Value, get_color,
                            upBin=upBin,
                            lowBin=lowBin,
