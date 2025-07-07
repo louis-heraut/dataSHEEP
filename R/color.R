@@ -309,7 +309,7 @@ get_IPCC_Palette = function (palette_name, colorStep=NA, reverse=FALSE) {
 
 #' @title test_palette
 #' @export
-test_palette = function (Palette=NULL, palette_name=NULL, colorStep=NA, reverse=FALSE) {
+test_palette = function (Palette=NULL, palette_name=NULL, colorStep=NA, reverse=FALSE, outname=NULL) {
     if (!is.null(palette_name)) {
         Palette = get_IPCC_Palette(palette_name,
                                    colorStep=colorStep,
@@ -325,11 +325,18 @@ test_palette = function (Palette=NULL, palette_name=NULL, colorStep=NA, reverse=
     if (!dir.exists(outdir)) {
         dir.create(outdir)
     }
+
+    if (!is.null(outname)) {
+        filename = paste0(outname, ".pdf") 
+    } else {
+        filename = paste0(palette_name, "_",
+                          paste0(Palette, collapse="-"),
+                          ".pdf")
+    }
+    
     ggplot2::ggsave(plot=plot,
                     path=outdir,
-                    filename=paste0(palette_name, "_",
-                                    paste0(Palette, collapse="-"),
-                                    ".pdf"),
+                    filename=filename,
                     width=10,
                     height=5, units='cm',
                     dpi=300,
