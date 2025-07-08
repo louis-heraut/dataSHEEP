@@ -377,14 +377,16 @@ theme_IPCC = function (is_panel.background=FALSE,
                        axis.text.x_angle=NULL,
                        axis.text.x_hjust=NULL,
                        axis.text.x_vjust=NULL,
+                       axis.text.x_margin=NULL,
+
                        axis.ticks.length.x=1.5,
 
                        is_axis.line.y=FALSE,
                        is_axis.ticks.y=TRUE,
                        is_axis.text.y=TRUE,
-                       axis.text.y_margin=NULL,
                        axis.text.y_size=8,
                        axis.text.y_vjust=0.59,
+                       axis.text.y_margin=NULL,
                        axis.ticks.length.y=axis.ticks.length.x,
 
                        isLabelX=FALSE, isLabelY=FALSE, 
@@ -420,8 +422,8 @@ theme_IPCC = function (is_panel.background=FALSE,
     if (is_axis.text.y) {
         axis.text.y = ggtext::element_markdown(color=IPCCgrey40,
                                                size=axis.text.y_size,
-                                               margin=axis.text.y_margin,
-                                               vjust=axis.text.y_vjust)
+                                               vjust=axis.text.y_vjust,
+                                               margin=axis.text.y_margin)
     } else {
         axis.text.y = element_blank()
     }
@@ -434,12 +436,12 @@ theme_IPCC = function (is_panel.background=FALSE,
         axis.ticks.x = element_blank()
     }
     if (is_axis.text.x) {
-        axis.text.x =
-            ggtext::element_markdown(color=IPCCgrey40,
-                                     size=axis.text.x_size,
-                                     angle=axis.text.x_angle,
-                                     hjust=axis.text.x_hjust,
-                                     vjust=axis.text.x_vjust)
+        axis.text.x = ggtext::element_markdown(color=IPCCgrey40,
+                                               size=axis.text.x_size,
+                                               angle=axis.text.x_angle,
+                                               hjust=axis.text.x_hjust,
+                                               vjust=axis.text.x_vjust,
+                                               margin=axis.text.x_margin)
     } else {
         axis.text.x = element_blank()
     }
