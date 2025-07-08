@@ -327,20 +327,31 @@ test_palette = function (Palette=NULL, palette_name=NULL, colorStep=NA, reverse=
     }
 
     if (!is.null(outname)) {
-        filename = paste0(outname, ".pdf") 
+        filename_pdf = paste0(outname, ".pdf")
+        filename_png = paste0(outname, ".png") 
     } else {
-        filename = paste0(palette_name, "_",
-                          paste0(Palette, collapse="-"),
-                          ".pdf")
+        filename_pdf = paste0(palette_name, "_",
+                              paste0(Palette, collapse="-"),
+                              ".pdf")
+        filename_png = paste0(palette_name, "_",
+                              paste0(Palette, collapse="-"),
+                              ".png")
     }
     
     ggplot2::ggsave(plot=plot,
                     path=outdir,
-                    filename=filename,
+                    filename=filename_pdf,
                     width=10,
                     height=5, units='cm',
                     dpi=300,
                     device=cairo_pdf)
+    
+    ggplot2::ggsave(plot=plot,
+                    path=outdir,
+                    filename=filename_png,
+                    width=10,
+                    height=5, units='cm',
+                    dpi=300)
 }
 
 
